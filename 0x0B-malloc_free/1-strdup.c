@@ -1,39 +1,38 @@
-#include "main.h"
 #include <stdlib.h>
+
 /**
- * _strdup - Main Entry
- * @str: input
- * Return: 0
- */*
+ * _strdup - Copies a string to new allocated space in memory
+ *
+ * @str: The string to be copied
+ *
+ * Return: Pointer to allocated memory containing copy of @str (SUCCESS)
+ * OR NULL if @str is empty (FAILURE) OR
+ * NUL if insufficient memory was available
+ */
+
 char *_strdup(char *str)
 {
-	char *nstr;
-	unsigned int len, i;
+	char *alloc_mem;
+	unsigned int i;
+	unsigned int length_of_string = 0;
 
-	/* check is str is null */
 	if (str == NULL)
-	{
-		return (NULL);
-	}
+		return ('\0');
 
-	len = 0;
-	while (str[len] != '\0')
-	{
-		len++;
-	}
+	while (*(str + length_of_string) != '\0')
+		length_of_string++;
 
-	nstr = malloc(sizeof(char) * (len + 1));
+	length_of_string++;
 
-	/*check if malloc was successful*/
-	if (nstr == NULL)
-	{
-		return (NULL);
-	}
+	alloc_mem = malloc(sizeof(*str) * length_of_string);
 
-	for (i = 0; i < len; i++)
-	{
-		nstr[i] = str[i];
-	}
-	nstr[len] = '\0';
-	return (nstr);
+	if (alloc_mem == NULL)
+		return ('\0');
+
+	for (i = 0; i < length_of_string; i++)
+		alloc_mem[i] = *(str + i);
+
+	alloc_mem[i] = '\0';
+
+	return (alloc_mem);
 }
